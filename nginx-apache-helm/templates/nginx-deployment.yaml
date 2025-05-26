@@ -38,7 +38,7 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          nginx-image: "{{ .Values.nginx-image.repository }}:{{ .Values.nginx-image.tag | default .Chart.AppVersion }}"
+          nginxImage: "{{ .Values.nginxImage.repository }}:{{ .Values.nginxImage.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http

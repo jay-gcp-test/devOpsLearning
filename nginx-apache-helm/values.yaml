@@ -6,14 +6,14 @@
 replicaCount: 1
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
-nginx-image:
+nginxImage:
   repository: nginx
   # This sets the pull policy for images.
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
-apache-image:
+apacheImage:
   repository: apache
   # This sets the pull policy for images.
   pullPolicy: IfNotPresent
