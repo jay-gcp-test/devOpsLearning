@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: apache-helm
+  name: {{ include "nginx-helm.fullname" . }}
   labels:
-    {{- include "apache-helm.labels" . | nindent 4 }}
+    {{- include "nginx-helm.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: apache-helm
+    name: {{ include "nginx-helm.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

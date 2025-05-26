@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "nginx-apache-helm.fullname" . }}-apache
+  name: {{ include "apache-helm.fullname" . }}
   labels:
-    {{- include "nginx-apache-helm.labels" . | nindent 4 }}
+    {{- include "apache-helm.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "nginx-apache-helm.selectorLabels" . | nindent 6 }}
+      {{- include "apache-helm.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "nginx-apache-helm.labels" . | nindent 8 }}
+        {{- include "apache-helm.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -27,7 +27,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "nginx-apache-helm.serviceAccountName" . }}
+      serviceAccountName: {{ include "apache-helm.serviceAccountName" . }}
       {{- with .Values.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
@@ -38,8 +38,8 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          image: "{{ .Values.apacheImage.repository }}:{{ .Values.apacheImage.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.apacheImage.pullPolicy }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
