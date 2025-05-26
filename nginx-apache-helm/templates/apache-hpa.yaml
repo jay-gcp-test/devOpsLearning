@@ -2,7 +2,7 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "nginx-apache-helm.fullname" . }}
+  name: {{ include "nginx-apache-helm.fullname" . }}-apache
   labels:
     {{- include "nginx-apache-helm.labels" . | nindent 4 }}
 spec:

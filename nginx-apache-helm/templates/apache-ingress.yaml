@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "nginx-apache-helm.fullname" . }}
+  name: {{ include "nginx-apache-helm.fullname" . }}-apache
   labels:
     {{- include "nginx-apache-helm.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
