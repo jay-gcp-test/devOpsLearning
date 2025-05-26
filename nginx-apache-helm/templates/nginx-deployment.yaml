@@ -38,8 +38,8 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          nginxImage: "{{ .Values.nginxImage.repository }}:{{ .Values.nginxImage.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.nginxImage.repository }}:{{ .Values.nginxImage.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.nginxImage.pullPolicy }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
