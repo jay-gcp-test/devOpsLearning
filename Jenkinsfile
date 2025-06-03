@@ -19,7 +19,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                googleServiceAccount([file(credentialsId: 'd7d633bc-c422-4620-a0ac-9fca348caf4c', variable: 'GCP_CREDS')]) {
+                withCredentials([file(credentialsId: 'Google Cloud Plain Text', variable: 'GCP_CREDS')]) {
                     sh """
                         echo "$GCP_CREDS" > gcp-key.json
                         gcloud autho activate-service-account --key-file=gcp-key.json
