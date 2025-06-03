@@ -10,21 +10,4 @@ pipeline {
         RELEASE_NAME = 'auto-nginx'
 
     }
-
-    stages {
-        stage ('Build Helm Chart')
-        {
-            steps {
-                sh """
-                    echo "$GCP_CREDS" > gcp-key.json
-                    gcloud auth activate-service-account --key-file=gcp-key.json
-                    gcloud config set project $PROJECT_ID
-                    gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_ZONE
-
-                    helm upgrade $RELEASE_NAME ./auto-nginx -n $NAMESPACE
-                    helm install $RELEASE_NAME ./auto-nginx -n $NAMESPACE
-                """
-            }
-        }
-    }
 }
