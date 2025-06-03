@@ -21,8 +21,7 @@ pipeline {
                 echo 'Deploying....'
                 withCredentials([file(credentialsId: 'Google Cloud Plain Text', variable: 'GCP_CREDS')]) {
                     sh """
-                        echo "$GCP_CREDS" > gcp-key.json
-                        gcloud auth activate-service-account --key-file=gcp-key.json
+                        gcloud auth activate-service-account --key-file=$GCP_CREDS
                         gcloud config set project $PROJECT_ID
                         gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_ZONE
 
