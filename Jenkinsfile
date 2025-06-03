@@ -19,7 +19,16 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                withCredentials([file(credentialsId: 'd7d633bc-c422-4620-a0ac-9fca348caf4c', variable: 'GCP_File')])
+                withCredentials([file(credentialsId: 'd7d633bc-c422-4620-a0ac-9fca348caf4c', variable: 'GCP_CREDS')]) {
+                    sh """
+                        echo "$GCP_CREDS" > gcp-key.json
+                        gcloud autho activate-service-account --key-file=gcp-key.json
+                        gcloud config set project $PROJECT_ID
+                        gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_ZONE
+
+                        kubectl set image deployment/test-autO your-container-name=$IMAGE_NAME:$BUILD_NUMBER
+                    """
+                }
             }
         }
     }
