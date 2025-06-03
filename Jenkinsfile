@@ -26,7 +26,7 @@ pipeline {
                         gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_ZONE
 
                         helm upgrade $RELEASE_NAME ./auto-nginx -n $NAMESPACE
-                        helm install $RELEASE_NAME ./auto-nginx -n $NAMESPACE
+                        helm install $TEST_NAME ./auto-nginx -n $NAMESPACE
                     """
                 }
             }
