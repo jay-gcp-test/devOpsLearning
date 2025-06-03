@@ -26,7 +26,8 @@ pipeline {
                         gcloud config set project $PROJECT_ID
                         gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_ZONE
 
-                        kubectl set image deployment/test-autO your-container-name=$IMAGE_NAME:$BUILD_NUMBER
+                        helm upgrade $RELEASE_NAME ./auto-nginx -n $NAMESPACE
+                        helm install $RELEASE_NAME ./auto-nginx -n $NAMESPACE
                     """
                 }
             }

@@ -13,6 +13,8 @@ pipeline {
             steps {
                 sh 'docker build -t test-auto"$BUILD_NUMBER .'
                 sh 'docker run '
+                kubectl set image deployment/test-auto your-container-name=$IMAGE_NAME:$BUILD_NUMBER
+
             }
         }
 
