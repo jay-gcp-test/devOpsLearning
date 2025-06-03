@@ -10,4 +10,12 @@ pipeline {
         RELEASE_NAME = 'auto-nginx'
 
     }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+    }
 }
