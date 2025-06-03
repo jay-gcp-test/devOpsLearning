@@ -7,7 +7,7 @@ pipeline {
         CLUSTER_ZONE = 'us-central1'
         NAMESPACE = 'test-env'
         RELEASE_NAME = 'auto-nginx'
-
+        TEST_NAME = 'auto-version2'
     }
 
     stages {
