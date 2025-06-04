@@ -7,14 +7,10 @@ pipeline {
         CLUSTER_ZONE = 'us-central1'
         NAMESPACE = 'test-env'
         RELEASE_NAME = 'auto-nginx'
+        HELM_PATH = './auto-nginx'
     }
 
     stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
-            }
-        }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
@@ -24,7 +20,7 @@ pipeline {
                         gcloud config set project $PROJECT_ID
                         gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_ZONE
 
-                        helm upgrade --install $RELEASE_NAME ./auto-nginx -n $NAMESPACE
+                        helm upgrade --install $RELEASE_NAME $HELM_PATH -n $NAMESPACE
                     """
                 }
             }
