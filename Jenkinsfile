@@ -13,34 +13,6 @@ pipeline {
     }
 
     stages {
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    echo 'Building Docker Image....'
-                    sh 'docker build -t ${IMAGE_NAME}:${env.BUILD_ID}'
-                }
-            }
-        }
-
-        stage('Build and Push Docker Image to GCA') {
-            steps {
-                script {
-                    echo 'Pushing Docker Image....'
-                    withCredentials([file(credentialsId: 'Google Cloud Plain Text', variable: 'GCP_CREDS')]) {
-                        sh '''
-                            gcloud auth activate-service-account --key-file=$GCP_CREDS
-                            gcloud config set project $PROJECT_ID
-                            gcloud auth configure-docker ${CLUSTER_ZONE}-docker.pkg.dev --quiet
-
-                            docker build -t ${IMAGE_NAME}:${env.BUILD_ID}
-                            docker push ${IMAGE_NAME}:${env.BUILD_ID}
-
-                        '''
-                    }
-                }
-            }
-        }
-
         stage('Deploy HELM') {
             steps {
                 echo 'Deploying HELM Chart....'
